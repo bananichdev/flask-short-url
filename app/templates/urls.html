@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block content %}
+<table class="table table-hover">
+  <thead>
+  <tr>
+    <th scope="col">#</th>
+    <th scope="col">Исходная ссылка</th>
+    <th scope="col">Короткая ссылка</th>
+    <th scope="col">Дата создания</th>
+    <th scope="col">Количество переходов</th>
+  </tr>
+  </thead>
+  <tbody>
+  {% for url in urls_list %}
+    <tr>
+      <th scope="row">{{ url.id }}</th>
+      <td>
+        <a href="{{ url_for('redirect_to_url', id=url.id) }}">
+          {{ url.original_url }}
+        </a>
+      </td>
+      <td>
+        <a href="{{ url_for('redirect_to_url', id=url.id) }}">
+          {{ url.short_url }}
+        </a>
+      </td>
+      <td>
+        {{ url.created_at.strftime('%d.%m.%Y') }}
+      </td>
+      <td>{{ url.visits }}</td>
+    </tr>
+  {% else %}
+    <tr>
+      <td>
+        Ссылок пока нет
+      </td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% endblock content %}
